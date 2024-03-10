@@ -1,0 +1,34 @@
+name: 'RPM Build'
+description: 'Build RPMs from spec file and upload it as Artifact or Release Asset'
+author: 'Carl Nygard'
+
+inputs:
+  spec_file:
+    description: 'path to the spec file'
+    required: true
+    default: '*.spec'                     #Any spec file in top
+  workspace_path:
+    description: 'path to the github actions working dir'
+    required: true
+    default: '/github'
+
+outputs:
+  source_rpm_path:
+    description: 'path to Source RPM file'
+  source_rpm_dir_path:
+    description: 'path to  SRPMS directory'
+  source_rpm_name:
+    description: 'name of Source RPM file'
+  rpm_dir_path:
+    description: 'path to RPMS directory'
+  rpm_content_type:
+    description: 'Content-type for Upload'
+
+runs:
+  using: 'docker'
+  image: Dockerfile
+#  image: 'docker://ghcr.io/global-science-technology-inc/rpmbuild-action:main'
+
+branding:
+  icon: 'package'
+  color: 'red'
