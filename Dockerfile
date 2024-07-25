@@ -119,26 +119,19 @@ RUN yum install -y \
 
 # hadolint ignore=DL3033,SC3009
 RUN yum install -y \
-    gtk-doc \
-    netpbm-devel \
-    jdk1.8.0_20 \
+    java-11-openjdk \
     glibc \
     glibc-headers \
     libsigc++20 \
     gtk2{,-devel} \
     glib2{,-devel} \
-    glibmm24{,-devel} \
-    gtkmm24{,-devel} \
     libglade2{,-devel} \
     libglademm24{,-devel} \
     cairo{,-devel} \
-    cairomm{,-devel} \
-    pangomm{,-devel} \
     gconfmm26{,-devel} \
     libxml2{,-devel} \
     ImageMagick{,-devel} \
     libcurl{,-devel} \
-    jasper{,-devel} \
     hdf5{,-devel} \
     gts{,-devel} \
     proj{,-devel} \
@@ -148,7 +141,6 @@ RUN yum install -y \
     libjpeg-turbo \
     freetype-devel \
     grib2 \
-    bitmap \
     pcre \
     xorg-x11-server-common \
     libXp \
@@ -161,6 +153,15 @@ RUN yum install -y \
     libXi-devel \
   && yum clean all
 
+#    gtk-doc \
+#    netpbm-devel \
+#    cairomm{,-devel} \
+#    pangomm{,-devel} \
+#    jasper{,-devel} \
+#    bitmap \
+#    glibmm24{,-devel} \
+#    gtkmm24{,-devel} \
+#    jdk1.8.0_20 \
 
 RUN grep -v \# /usr/lib64/pkgconfig/libcurl.pc > /tmp/libcurl.pc && mv -f /tmp/libcurl.pc /usr/lib64/pkgconfig
 
