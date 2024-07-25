@@ -72,10 +72,7 @@ RUN yum install -y \
     bash \
     gzip \
     rpm-build \
-    doxygen \
-    graphviz-gd \
     unzip \
-    docbook-utils \
     swig \
     sed \
     wget \
@@ -86,6 +83,9 @@ RUN yum install -y \
     libstdc++{,-devel} \
   && yum clean all
 
+#     doxygen \
+#     graphviz-gd \
+#     docbook-utils \
 #     vim-common \
 #     valgrind \
 #     strace \
