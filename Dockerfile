@@ -39,7 +39,7 @@ RUN --mount=type=secret,id=NEXUS_PASSWORD cat /run/secrets/NEXUS_PASSWORD \
     && echo -n "length of password: " \
     && echo "${NEXUS_PASSWORD}" | wc -c \
     && curl -k -O \
-       https://gst-wx-yum:$NEXUS_PASSWORD@nexus.gst.com/repository/gst-wx/metlab/v1.10/x86_64/$METLAB_YUM \
+       https://gst-wx-yum:"${NEXUS_PASSWORD}"@nexus.gst.com/repository/gst-wx/metlab/v1.10/x86_64/"${METLAB_YUM}" \
     && rpm -Uvh "${METLAB_YUM}" \
     && rm "${METLAB_YUM}"
 
