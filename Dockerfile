@@ -105,13 +105,15 @@ RUN yum install -y \
     perl-ExtUtils-Embed \
     perl-devel \
     perl-Glib \
-    perl-Gtk2 \
-    perl-Gtk2-GladeXML \
     perl-Git \
     perl-Cairo \
     perl-DBI \
   && yum clean all
 
+### These should be found
+#    perl-Gtk2 \
+#    perl-Gtk2-GladeXML \
+###
 #    perl-Gtk2-Ex-Simple-OptionMenu \
 #    perl-Gtk2-Ex-Simple-CascadeList \
 
