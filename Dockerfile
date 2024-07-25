@@ -11,6 +11,7 @@ COPY . .
 # depends on BuildRequires field in specfile, (TODO: take as input & install)
 # hadolint ignore=DL3041
 RUN dnf install -y --allowerasing \
+  libcurl \
   curl \
   tar \
   rpm-build \
@@ -140,6 +141,7 @@ RUN yum install -y \
     openmotif{,-devel} \
     libjpeg-turbo \
     freetype-devel \
+    jasper \
     grib2 \
     pcre \
     xorg-x11-server-common \
