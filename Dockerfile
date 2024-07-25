@@ -33,7 +33,7 @@ RUN /bin/sh -c 'rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dex
 
 # checkov:skip=CKV2_DOCKER_2 "Ensure that certificate validation isn't disabled with curl"
 ENV METLAB_YUM=metlab-yum-1.10.0-27.x86_64.rpm
-# hadolint ignore=DL4006 "set -o pipefail"
+# hadolint ignore=DL4006,SC2086
 RUN --mount=type=secret,id=NEXUS_PASSWORD cat /run/secrets/NEXUS_PASSWORD \
     && export NEXUS_PASSWORD=$(cat /run/secrets/NEXUS_PASSWORD) \
     && echo -n "length of password: " \

@@ -12,10 +12,10 @@ env:
   IMAGE_NAME: ${{ github.repository }}
   NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
 
-
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
+# CKV2_GHA_1: "Ensure top-level permissions are not set to write-all"
     permissions:
       contents: read
       packages: write
