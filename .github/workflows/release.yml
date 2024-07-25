@@ -8,6 +8,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
 
 jobs:
   build-and-push-image:
