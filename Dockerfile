@@ -24,8 +24,8 @@ RUN dnf install -y --allowerasing \
 
 ENV METLAB_YUM=metlab-yum-1.10.0-27.x86_64.rpm
 RUN --mount=type=secret,id=NEXUS_PASSWORD \
-    cat /run/secrets/NEXUS_PASSWORD \
-    export NEXUS_PASSWORD=$(cat /run/secrets/NEXUS_PASSWORD) \
+    && cat /run/secrets/NEXUS_PASSWORD \
+    && export NEXUS_PASSWORD=$(cat /run/secrets/NEXUS_PASSWORD) \
     && echo -n "length of password: " \
     && echo "${NEXUS_PASSWORD}" | wc -c \
     && curl -k -O \
