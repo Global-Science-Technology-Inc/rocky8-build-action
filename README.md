@@ -7,7 +7,7 @@
 [![Coverage](./badges/coverage.svg)](./badges/coverage.svg)
 
 This GitHub Action builds RPMs from spec file and using repository contents as source (wraps the rpmbuild utility).
-Integrates easily with GitHub actions to allow RPMS to be uploaded as Artifact (actions/upload-artifact) or as Release Asset (actions/upload-release-asset).
+Integrates easily with GitHub Actions to allow RPMS to be uploaded as Artifact (actions/upload-artifact) or as Release Asset (actions/upload-release-asset).
 
 ## Usage
 
@@ -66,7 +66,7 @@ jobs:
         path: ${{ steps.rpm.outputs.rpm_dir_path }}
 ```
 
-This workflow triggered on every `push`, builds RPM and Source RPM using cello.spec and contents of that git ref that triggered that action.
+This workflow triggered on every `push`, builds RPM and Source RPM using cello.spec and contents of that Git ref that triggered that action.
 Contents are retrived through [GitHub API](https://developer.github.com/v3/repos/contents/#get-archive-link) [downloaded through archive link].
 The generated RPMs or SRPMS can be uploaded as artifacts by using actions/upload-artifact.
 The [outputs](#outputs) given by rpmbuild action can be used to specify path for upload action.

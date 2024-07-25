@@ -22,7 +22,18 @@ RUN dnf install -y --allowerasing \
   git \
   && dnf clean all
 
+# The epel release version might have to get bumped if it's not found
+# hadolint ignore=DL3033,SC3009
+RUN yum -y install epel-release && yum clean all
+RUN /bin/sh -c 'rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm'
+#RUN /bin/sh -c rpm -Uvh \
+#    http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-12.noarch.rpm
+#RUN rpm -Uvh \
+#    http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-12.noarch.rpm
+
+# checkov:skip=CKV2_DOCKER_2 "Ensure that certificate validation isn't disabled with curl"
 ENV METLAB_YUM=metlab-yum-1.10.0-27.x86_64.rpm
+# hadolint ignore=DL4006 "set -o pipefail"
 RUN --mount=type=secret,id=NEXUS_PASSWORD cat /run/secrets/NEXUS_PASSWORD \
     && export NEXUS_PASSWORD=$(cat /run/secrets/NEXUS_PASSWORD) \
     && echo -n "length of password: " \
@@ -36,22 +47,16 @@ RUN --mount=type=secret,id=NEXUS_PASSWORD cat /run/secrets/NEXUS_PASSWORD \
 # Download Node Linux binary
 ENV NODE_VER=v20.11.1
 ENV NODE_PKG=node-${NODE_VER}-linux-x64.tar.xz
-RUN curl -O https://nodejs.org/dist/$NODE_VER/$NODE_PKG \
-  && tar --strip-components 1 -xvf $NODE_PKG -C /usr/local \
+RUN curl -O https://nodejs.org/dist/"${NODE_VER}"/"${NODE_PKG}" \
+  && tar --strip-components 1 -xvf "${NODE_PKG}" -C /usr/local \
   && rm $NODE_PKG
 
 # Install dependecies and build main.js
 RUN npm install \
 && npm run-script build
 
-# The epel release version might have to get bumped if it's not found
-RUN yum -y install epel-release && yum clean all
-RUN /bin/sh -c "rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm"
-#RUN /bin/sh -c rpm -Uvh \
-#    http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-12.noarch.rpm
-#RUN rpm -Uvh \
-#    http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-12.noarch.rpm
-
+# checkov:skip=CKV2_DOCKER_1 "Ensure that sudo isn't used"
+# hadolint ignore=DL3033,SC3009
 RUN yum install -y \
     sudo \
     gcc-c++ \
@@ -91,6 +96,7 @@ RUN yum install -y \
 #     telnet \
 #
 
+# hadolint ignore=DL3033,SC3009
 RUN yum install -y \
     perl \
     perl-version \
@@ -109,6 +115,7 @@ RUN yum install -y \
 #    perl-Gtk2-Ex-Simple-OptionMenu \
 #    perl-Gtk2-Ex-Simple-CascadeList \
 
+# hadolint ignore=DL3033,SC3009
 RUN yum install -y \
     gtk-doc \
     netpbm-devel \
@@ -153,7 +160,7 @@ RUN yum install -y \
   && yum clean all
 
 
-RUN cat /usr/lib64/pkgconfig/libcurl.pc | grep -v \# > /tmp/libcurl.pc && mv -f /tmp/libcurl.pc /usr/lib64/pkgconfig
+RUN grep -v \# /usr/lib64/pkgconfig/libcurl.pc > /tmp/libcurl.pc && mv -f /tmp/libcurl.pc /usr/lib64/pkgconfig
 
 # All remaining logic goes inside main.js ,
 # where we have access to both tools of this container and
